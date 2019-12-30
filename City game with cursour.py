@@ -1,33 +1,43 @@
 import pygame
 import time
+import array as arr
+
+
 pygame.init()
 
 win = pygame.display.set_mode((1000,1000))
 
 pygame.display.set_caption("City Game")
 
+help_manual = input("Village = 10*10 ,Town = 15*15 ,City = 25*25 , Custom = unknown*unknown a\, Please enter your choise: ")
 
+if help_manual == "Village":
+    X = 10
+    Y = 10
+elif help_manual == "Town":
+    X = 15
+    Y = 15
+elif help_manual == "City":
+    X = 25
+    Y = 25
+else:
+    X =int(input())
+    Y =int(input())
 
-x1 = 200
-y1 = 100
-x2 = 200
-y2 = 100
-x3 = 400
-y3 = 100
-x4 = 600
-y4 = 100
-x5 = 800
-y5 = 100
+m = [[0] * Y for i  in range(X)]
 
-money = 500
+display_width = 1000
+display_height = 1000
 
+Sum1 = int(0)
+Sum2 = int(0)
 
+m[0][0] = 0
 
-x = 200
-y = 100
+money = 20000
 
-width = 100
-height = 100
+width = round(display_width/X)
+height = round(display_height/Y)
 width2 = 50
 height2 = 50
 vel = 200
@@ -35,32 +45,15 @@ vel2 = 300
 run = True
 
 win.fill((0, 0, 0))
-pygame.draw.rect(win, (255, 0, 0),(x1, y1, width, height))
-pygame.draw.rect(win, (255, 0, 0),(x3, y3, width, height))
-pygame.draw.rect(win, (255, 0, 0),(x4, y4, width, height))
-pygame.draw.rect(win, (255, 0, 0),(x5, y5, width, height))
+
+for x in range(0,X*width,width):
+    for y in range(0,Y*height,height):
+        pygame.draw.rect(win, (255, 0, 0),(x, y, width-2, height-2))
+
+
+
+
  
-    
-pygame.draw.rect(win, (255, 0, 0),(200, 300, width, height))
-pygame.draw.rect(win, (255, 0, 0),(400, 300, width, height))
-pygame.draw.rect(win, (255, 0, 0),(600, 300, width, height))
-pygame.draw.rect(win, (255, 0, 0),(800, 300, width, height))
-
-    
-
-pygame.draw.rect(win, (255, 0, 0),(200, 500, width, height))
-pygame.draw.rect(win, (255, 0, 0),(400, 500, width, height))
-pygame.draw.rect(win, (255, 0, 0),(600, 500, width, height))
-pygame.draw.rect(win, (255, 0, 0),(800, 500, width, height))
-
-pygame.draw.rect(win, (255, 0, 0),(200, 700, width, height))
-pygame.draw.rect(win, (255, 0, 0),(400, 700, width, height))
-pygame.draw.rect(win, (255, 0, 0),(600, 700, width, height))
-pygame.draw.rect(win, (255, 0, 0),(800, 700, width, height))
-
-
-
-
 
 while run:
     pygame.time.delay(100)
@@ -68,296 +61,112 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-
-
-        
-
+    
     mouse = pygame.mouse.get_pos()
     pygame.display.update()
     keys = pygame.key.get_pressed()
-
-
-   
-    if x1+width > mouse[0] > x1 and y1+height > mouse[1] > y1:
+    stuppos = round(mouse[0]//width)
+    redpos = round(mouse[1]//height)
+    
+    if keys[pygame.K_r]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
         if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(x1, y1, width, height))    
-           
+            if (money>100):
+                if (m[stuppos][redpos] == 0):
+                    pygame.draw.rect(win, (0, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-100
+                    print(money)
+                    m[stuppos][redpos] = 1
+                else:
+                    print("You don't have enough money or that place is already filled with something")
+
+
+    if keys[pygame.K_c]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
         if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(x1, y1, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(x1, y1, width, height))
+            if (money>100):
+                if (m[stuppos][redpos] == 0):
+                    pygame.draw.rect(win, (0, 0, 255),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-100
+                    print(money)
+                    m[stuppos][redpos] = 2
+                else:
+                    print("You don't have enough money or that place is already filled with something")
 
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(x1, y1, width, height))
-            
+    if keys[pygame.K_i]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
         if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(x1, y1, width, height))
-        
+            if (money>100):
+                if (m[stuppos][redpos] == 0):
+                    pygame.draw.rect(win, (255, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-100
+                    print(money)
+                    m[stuppos][redpos] = 3
+                else:
+                    print("You don't have enough money or that place is already filled with something")
 
-    if x3+width > mouse[0] > x3 and y3+height > mouse[1] > y3:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(x3, y3, width, height))
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(x3, y3, width, height))
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(x3, y3, width, height))
+    if keys[pygame.K_f]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
         if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(x3, y3, width, height))
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(x3, y3, width, height))
-        
+            if (money>400):
+                if (m[stuppos][redpos] == 0):
+                    pygame.draw.rect(win, (220, 50, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-400
+                    print(money)
+                    m[stuppos][redpos] = 4
+                else:
+                    print("You don't have enough money or that place is already filled with something")
 
-    if x5+width > mouse[0] > x5 and y5+height > mouse[1] > y5:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(x5, y5, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(x5, y5, width, height))
-          
+    if keys[pygame.K_p]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
         if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(x5, y5, width, height))
+            if (money>400):
+                if (m[stuppos][redpos] == 0):
+                    pygame.draw.rect(win, (120, 0, 200),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-400
+                    print(money)
+                    m[stuppos][redpos] = 5
+                else:
+                    print("You don't have enough money or that place is already filled with something")
 
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(x5, y5, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(x5, y5, width, height))
-        
-
-            
-    if x4+width > mouse[0] > x4 and y4+height > mouse[1] > y4:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(x4, y4, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(x4, y4, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(x4, y4, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(x4, y4, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(x4, y4, width, height))
-        
-
-
-    if 200+width > mouse[0] > 200 and 300+height > mouse[1] > 300:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(200, 300, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(200, 300, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(200, 300, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(200, 300, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(200, 300, width, height))
-        
-
-    if 400+width > mouse[0] > 400 and 300+height > mouse[1] > 300:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(400, 300, width, height))
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(400, 300, width, height))
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(400, 300, width, height))
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(400, 300, width, height))
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(400, 300, width, height))
-        
-
-    if 600+width > mouse[0] > 600 and 300+height > mouse[1] > 300:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(600, 300, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(600, 300, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(600, 300, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(600, 300, width, height))
-            
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(600, 300, width, height))
-        
-            
-    if 800+width > mouse[0] > 800 and 300+height > mouse[1] > 300:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(800, 300, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(800, 300, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(800, 300, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(800, 300, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(800, 300, width, height))
-        
-   
+    if keys[pygame.K_e]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_e]:
+            if (money>10):
+                if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5):
+                    pygame.draw.rect(win, (255, 0, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    money = money-10
+                    print(money)
+                    m[stuppos][redpos] = 0
+                else:
+                    print("You don't have enough money or that place is already erased")
+    
+    if (m[stuppos][redpos] == 1):
+        for z in range(0,60001,1):
+            if (z==60000):
+                money = money+10
+                print(money)
+     
 
 
-    if 200+width > mouse[0] > 200 and 500+height > mouse[1] > 500:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(200, 500, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(200, 500, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(200, 500, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(200, 500, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(200, 500, width, height))
-        
-
-    if 400+width > mouse[0] > 400 and 500+height > mouse[1] > 500:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(400, 500, width, height))
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(400, 500, width, height))
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(400, 500, width, height))
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(400, 500, width, height))
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(400, 500, width, height))
-        
-
-    if 600+width > mouse[0] > 600 and 500+height > mouse[1] > 500:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(600, 500, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(600, 500, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(600, 500, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(600, 500, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(600, 500, width, height))
-        
-            
-    if 800+width > mouse[0] > 800 and 500+height > mouse[1] > 500:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(800, 500, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(800, 500, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(800, 500, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(800, 500, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(800, 500, width, height))
-        
-   
 
 
-    if 200+width > mouse[0] > 200 and 700+height > mouse[1] > 700:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(200, 700, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(200, 700, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(200, 700, width, height))
 
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(200, 700, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(200, 700, width, height))
-        
-
-    if 400+width > mouse[0] > 400 and 700+height > mouse[1] > 700:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(400, 700, width, height))
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(400, 700, width, height))
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(400, 700, width, height))
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(400, 700, width, height))
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(400, 700, width, height))
-        
-        
-
-    if 600+width > mouse[0] > 600 and 700+height > mouse[1] > 700:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(600, 700, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(600, 700, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(600, 700, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(600, 700, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(600, 700, width, height))
-        
-            
-    if 800+width > mouse[0] > 800 and 700+height > mouse[1] > 700:
-        if keys[pygame.K_r]:
-            pygame.draw.rect(win, (0, 255, 0),(800, 700, width, height))    
-           
-        if keys[pygame.K_c]:
-            pygame.draw.rect(win, (0, 0, 255),(800, 700, width, height))
-          
-        if keys[pygame.K_p]:
-            pygame.draw.rect(win, (100, 0, 255),(800, 700, width, height))
-
-        if keys[pygame.K_f]:
-            pygame.draw.rect(win, (120, 0, 0),(800, 700, width, height))
-
-        if keys[pygame.K_i]:
-            pygame.draw.rect(win, (255, 255, 0),(800, 700, width, height))
-        
-
-    if 800 or 600 or 400 or 200+width > mouse[0] > 800 and 700 or 500 or 300 or 100+height > mouse[1] > 700:
-        if keys[pygame.K_r]:
-            print(money-10)
 
     
 
 
-
-
-
-
-
-
+    
     pygame.display.update()
 
-
-
-
-
 pygame.quit()
+
+
+
+
