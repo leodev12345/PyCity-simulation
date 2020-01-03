@@ -2,25 +2,37 @@ import pygame
 import time
 import array as arr
 
-import pyautogui
+
 
 pygame.init()
 
 win = pygame.display.set_mode((1000,1000))
+icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("City Game")
+pygame.display.set_caption("PyCity BETA 0.1")
+pygame.display.set_icon(icon)
+green = (0,255,0)
+win.fill(green)
+myfont = pygame.font.SysFont("arial", 20)
 
-help_manual = input("Village = 10*10 ,Town = 15*15 ,City = 25*25 , Custom = unknown*unknown a\, Please enter your choise: ")
+house = pygame.image.load('images/home.png')
+shop = pygame.image.load('images/shop.png')
+factory = pygame.image.load('images/factory.png')
+road = pygame.image.load('images/road.png')
+
+
+help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 , Custom = unknown*unknown a\, Please enter your choise: ")
+
 
 if help_manual == "Village":
+    X = 5
+    Y = 5
+elif help_manual == "Town":
+    X = 7
+    Y = 7
+elif help_manual == "City":
     X = 10
     Y = 10
-elif help_manual == "Town":
-    X = 15
-    Y = 15
-elif help_manual == "City":
-    X = 25
-    Y = 25
 else:
     X =int(input())
     Y =int(input())
@@ -36,6 +48,12 @@ Sum2 = int(0)
 m[0][0] = 0
 
 money = 20000
+population = 0
+homes = 0
+homesc = 10
+shopsc = 0
+shops = 0
+factories = 0
 
 width = round(display_width/X)
 height = round(display_height/Y)
@@ -43,13 +61,17 @@ width2 = 50
 height2 = 50
 vel = 200
 vel2 = 300
+house_big = pygame.transform.scale(house, (width-2,height-2))
+shop_big = pygame.transform.scale(shop, (width-2,height-2))
+factory_big = pygame.transform.scale(factory, (width-2,height-2))
+road_big = pygame.transform.scale(road, (width-2,height-2))
 run = True
 
 win.fill((0, 0, 0))
 
 for x in range(0,X*width,width):
     for y in range(0,Y*height,height):
-        pygame.draw.rect(win, (255, 0, 0),(x, y, width-2, height-2))
+        pygame.draw.rect(win, (0, 255, 0),(x, y, width-2, height-2))
 
 
 
@@ -68,30 +90,46 @@ while run:
     keys = pygame.key.get_pressed()
     stuppos = round(mouse[0]//width)
     redpos = round(mouse[1]//height)
-    
+    text = myfont.render("Money:" + str(money), True, (255, 255, 255), (0, 0, 0))
+    text2 = myfont.render("Population:" + str(population), True, (255, 255, 255), (0, 0, 0))
+    win.blit(text, (10, 10))
+    win.blit(text2, (150, 10))
+    if homes == homesc:
+        homesc = homesc+10
+        shopsc = shopsc+1
+        pygame.draw.rect(win, (0, 0, 255),(300, 10, 20, 20))
+    elif shops == shopsc:
+        pygame.draw.rect(win, (0, 255, 0),(300, 10, 20, 20))
+    if shops!=0:
+        if shopsc == shops:
+            pygame.draw.rect(win, (139,69,19),(350, 10, 20, 20))
+            shopsc = shopsc+1
+        elif factories == shops:
+            pygame.draw.rect(win, (0, 255, 0),(350, 10, 20, 20))
+
     if keys[pygame.K_r]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_r]:
             if (money>100):
                 if (m[stuppos][redpos] == 0):
-                    pygame.draw.rect(win, (0, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    win.blit(house_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
-                    print(money)
+                    population = population+10
+                    homes = homes+1
                     m[stuppos][redpos] = 1
                 else:
                     print("You don't have enough money or that place is already filled with something")
-
-
+        
     if keys[pygame.K_c]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_c]:
             if (money>100):
                 if (m[stuppos][redpos] == 0):
-                    pygame.draw.rect(win, (0, 0, 255),(stuppos*width, redpos*height, width-2, height-2))
+                    win.blit(shop_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
-                    print(money)
+                    shops = shops+1
                     m[stuppos][redpos] = 2
                 else:
                     print("You don't have enough money or that place is already filled with something")
@@ -102,36 +140,22 @@ while run:
         if keys[pygame.K_i]:
             if (money>100):
                 if (m[stuppos][redpos] == 0):
-                    pygame.draw.rect(win, (255, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    win.blit(factory_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
-                    print(money)
+                    factories = factories+1
                     m[stuppos][redpos] = 3
                 else:
                     print("You don't have enough money or that place is already filled with something")
 
-    if keys[pygame.K_f]:
+    if keys[pygame.K_o]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
-        if keys[pygame.K_f]:
-            if (money>400):
+        if keys[pygame.K_o]:
+            if (money>10):
                 if (m[stuppos][redpos] == 0):
-                    pygame.draw.rect(win, (220, 50, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    win.blit(road_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-400
-                    print(money)
                     m[stuppos][redpos] = 4
-                else:
-                    print("You don't have enough money or that place is already filled with something")
-
-    if keys[pygame.K_p]:
-        stuppos = round(mouse[0]//width)
-        redpos = round(mouse[1]//height)
-        if keys[pygame.K_p]:
-            if (money>400):
-                if (m[stuppos][redpos] == 0):
-                    pygame.draw.rect(win, (120, 0, 200),(stuppos*width, redpos*height, width-2, height-2))
-                    money = money-400
-                    print(money)
-                    m[stuppos][redpos] = 5
                 else:
                     print("You don't have enough money or that place is already filled with something")
 
@@ -141,18 +165,12 @@ while run:
         if keys[pygame.K_e]:
             if (money>10):
                 if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5):
-                    pygame.draw.rect(win, (255, 0, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    pygame.draw.rect(win, (0, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
                     money = money-10
-                    print(money)
                     m[stuppos][redpos] = 0
                 else:
                     print("You don't have enough money or that place is already erased")
     
-    if (m[stuppos][redpos] == 1):
-        for z in range(0,60001,1):
-            if (z==60000):
-                money = money+10
-                print(money)
      
 
 
