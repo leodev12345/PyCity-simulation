@@ -34,6 +34,18 @@ elif help_manual == "City":
 else:
     X =int(input("Enter x:"))
     Y =int(input("Enter y:"))
+print("====================")
+print("Chose diffculty Easy - start with 20000 money Medium - start with 10000 money Hard - start with 1200 money")
+diffculty = input()
+if diffculty=="Easy":
+    money = 20000
+elif diffculty=="Medium":
+    money = 10000
+elif diffculty=="Hard":
+    money = 1200
+print("====================")
+print("Enter name: for your city:")
+name=input()
 
 m = [[0] * Y for i  in range(X)]
 
@@ -45,12 +57,12 @@ Sum2 = int(0)
 
 m[0][0] = 0
 
-money = 20000
 population = 0
 homes = 0
 homesc = 10
 shopsc = 0
 shops = 0
+income = 0
 factories = 0
 
 width = round(display_width/X)
@@ -89,8 +101,11 @@ while run:
     redpos = round(mouse[1]//height)
     text = myfont.render("Money:" + str(money), True, (255, 255, 255), (0, 0, 0))
     text2 = myfont.render("Population:" + str(population), True, (255, 255, 255), (0, 0, 0))
+    text3 = myfont.render(str(name), True, (255, 255, 255), (0, 0, 0))
     win.blit(text, (10, 10))
     win.blit(text2, (150, 10))
+    win.blit(text3, (600, 10))
+    money=money+(1*income)
     if homes == homesc:
         homesc = homesc+10
         shopsc = shopsc+1
@@ -129,6 +144,7 @@ while run:
                     win.blit(shop_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
                     shops = shops+1
+                    income=income+1
                     m[stuppos][redpos] = 2
 
     if keys[pygame.K_i]:
@@ -140,6 +156,7 @@ while run:
                     win.blit(factory_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
                     factories = factories+1
+                    income=income+1
                     m[stuppos][redpos] = 3
 
     if keys[pygame.K_o]:
