@@ -6,7 +6,7 @@ import array as arr
 
 pygame.init()
 
-win = pygame.display.set_mode((700,700))
+win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
 pygame.display.set_caption("PyCity BETA 0.8")
@@ -20,6 +20,8 @@ park = pygame.image.load('images/park.png')
 shop = pygame.image.load('images/shop.png')
 factory = pygame.image.load('images/factory.png')
 road = pygame.image.load('images/road.png')
+picon = pygame.image.load('images/population.png')
+micon = pygame.image.load('images/money.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 25*25 Custom = custom*custom a\, Please enter your choise: ")
@@ -53,8 +55,11 @@ elif diffculty=="Medium":
 elif diffculty=="Hard":
     money = 1200
 print("====================")
-print("Enter name: for your city:")
+print("Enter name for your city (14 char max):")
 name=input()
+if len(str(name))>14:
+    print("Too long name! Please try again:")
+    name=input()
 
 m = [[0] * Y for i  in range(X)]
 
@@ -74,6 +79,7 @@ shops = 0
 income = 0
 factories = 0
 landValue = 9
+taxc=1000
 
 width = round(display_width/X)
 height = round(display_height/Y)
@@ -81,6 +87,7 @@ width2 = 50
 height2 = 50
 vel = 200
 vel2 = 300
+tax=0
 house_big = pygame.transform.scale(house, (width-2,height-2))
 house_big2 = pygame.transform.scale(house2, (width-2,height-2))
 house_big3 = pygame.transform.scale(house3, (width-2,height-2))
@@ -94,47 +101,53 @@ win.fill((0, 0, 0))
 
 for x in range(0,X*width,width):
     for y in range(0,Y*height,height):
-        pygame.draw.rect(win, (0, 255, 0),(x, y, width-2, height-2))
+        pygame.draw.rect(win, (86, 213, 47),(x, y, width-2, height-2))
 
 
 
 
- 
+pygame.draw.rect(win, (86, 213, 47),(700, 0, 150, 700))
+win.blit(picon, (710, 90,20,20))
+win.blit(micon, (710, 50,20,20))
 while run:
     pygame.time.delay(100)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    
     mouse = pygame.mouse.get_pos()
     pygame.display.update()
     keys = pygame.key.get_pressed()
     stuppos = round(mouse[0]//width)
     redpos = round(mouse[1]//height)
-    text = myfont.render("Money:" + str(money), True, (255, 255, 255), (0, 0, 0))
-    text2 = myfont.render("Population:" + str(population), True, (255, 255, 255), (0, 0, 0))
-    text3 = myfont.render(str(name), True, (255, 255, 255), (0, 0, 0))
-    win.blit(text, (10, 10))
-    win.blit(text2, (150, 10))
-    win.blit(text3, (600, 10))
-    money=money+(1*income)
+    text = myfont.render(str(money), True, (0,0,0), (86, 213, 47))
+    text2 = myfont.render(str(population), True, (0,0,0), (86, 213, 47))
+    text3 = myfont.render(str(name), True, (0,0,0), (86, 213, 47))
+    win.blit(text3, (720, 10))
+    pygame.draw.line(win,(0,0,0),(700,35),(850,35))
+    win.blit(text, (735, 50))
+    win.blit(text2, (735, 90))
+    tax=tax+1
+    if tax==taxc:
+        money=money+(income*10)
+        taxc=taxc+1000
+        
     if homes == homesc:
         homesc = homesc+10
         shopsc = shopsc+1
-        pygame.draw.rect(win, (0, 0, 255),(300, 10, 20, 20))
+        pygame.draw.rect(win, (0, 0, 255),(720, 140, 20, 20))
     elif shops == shopsc:
-        pygame.draw.rect(win, (0, 255, 0),(300, 10, 20, 20))
+        pygame.draw.rect(win, (86, 213, 47),(720, 140, 20, 20))
     elif shops>1 and shops == shopsc-1:
-        pygame.draw.rect(win, (0, 255, 0),(300, 10, 20, 20))
+        pygame.draw.rect(win, (86, 213, 47),(720, 140, 20, 20))
     if shops!=0:
         if shopsc == shops:
-            pygame.draw.rect(win, (139,69,19),(350, 10, 20, 20))
+            pygame.draw.rect(win, (139,69,19),(760, 140, 20, 20))
             shopsc = shopsc+1
         elif factories == shops:
-            pygame.draw.rect(win, (0, 255, 0),(350, 10, 20, 20))
+            pygame.draw.rect(win, (86, 213, 47),(760, 140, 20, 20))
         elif shops>1 and shopsc-1 == shops:
-            pygame.draw.rect(win, (139,69,19),(350, 10, 20, 20))
+            pygame.draw.rect(win, (139,69,19),(760, 140, 20, 20))
 
 
     if keys[pygame.K_r]:
@@ -148,6 +161,7 @@ while run:
                         money = money-100
                         population = population+10
                         homes = homes+1
+                        income=income+1
                         m[stuppos][redpos] = 1
                     if landValue>=10 and landValue<20:
                         win.blit(house_big2, (stuppos*width, redpos*height,width-2, height-2))
@@ -156,6 +170,7 @@ while run:
                         homes = homes+1
                         landValue=landValue-1
                         m[stuppos][redpos] = 1
+                        income=income+1
                     if landValue>=20:
                         win.blit(house_big3, (stuppos*width, redpos*height,width-2, height-2))
                         money = money-50
@@ -163,6 +178,7 @@ while run:
                         homes = homes+1
                         landValue=landValue-1
                         m[stuppos][redpos] = 1
+                        income=income+1
         
         
     if keys[pygame.K_c]:
