@@ -221,7 +221,7 @@ while run:
         if keys[pygame.K_e]:
             if (money>=10):
                 if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5):
-                    pygame.draw.rect(win, (0, 255, 0),(stuppos*width, redpos*height, width-2, height-2))
+                    pygame.draw.rect(win, (86, 213, 47),(stuppos*width, redpos*height, width-2, height-2))
                     money = money-10
                     m[stuppos][redpos] = 0
     
