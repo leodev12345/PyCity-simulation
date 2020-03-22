@@ -9,7 +9,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 0.8")
+pygame.display.set_caption("PyCity BETA 0.9")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
