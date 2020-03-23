@@ -9,7 +9,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 0.9")
+pygame.display.set_caption("PyCity BETA 1.0")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
@@ -22,6 +22,9 @@ factory = pygame.image.load('images/factory.png')
 road = pygame.image.load('images/road.png')
 picon = pygame.image.load('images/population.png')
 micon = pygame.image.load('images/money.png')
+fire = pygame.image.load('images/fire.png')
+police = pygame.image.load('images/police.png')
+hospital = pygame.image.load('images/hospital.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 25*25 Custom = custom*custom a\, Please enter your choise: ")
@@ -73,13 +76,24 @@ m[0][0] = 0
 
 population = 0
 homes = 0
+homesf = 0
+homesp = 0
 homesc = 10
+homescf = 20
+homescp =20
 shopsc = 0
 shops = 0
 income = 0
 factories = 0
 landValue = 9
 taxc=1000
+hospitals=0
+pstations=0
+fstations=0
+policec=0
+firec=0
+hosc =  0
+populationc=5000
 
 width = round(display_width/X)
 height = round(display_height/Y)
@@ -95,6 +109,9 @@ park_big = pygame.transform.scale(park, (width-2,height-2))
 shop_big = pygame.transform.scale(shop, (width-2,height-2))
 factory_big = pygame.transform.scale(factory, (width-2,height-2))
 road_big = pygame.transform.scale(road, (width-2,height-2))
+fire_big = pygame.transform.scale(fire, (width-2,height-2))
+police_big = pygame.transform.scale(police, (width-2,height-2))
+hospital_big = pygame.transform.scale(hospital, (width-2,height-2))
 run = True
 
 win.fill((0, 0, 0))
@@ -128,6 +145,35 @@ while run:
     win.blit(text, (735, 50))
     win.blit(text2, (735, 90))
     tax=tax+1
+
+    if population>=populationc and population<populationc+1000:
+        populationc = populationc+5000
+        hosc = hosc+1
+        pygame.draw.rect(win, (255, 255, 255),(760, 170, 20, 20))
+    elif hosc == hospitals:
+        pygame.draw.rect(win, (86, 213, 47),(760, 170, 20, 20))
+
+
+
+    if homesf == homescf:
+        homescf = homescf+20
+        firec = firec+1
+        pygame.draw.rect(win, (255, 0, 0),(800, 140, 20, 20))
+    elif fstations == firec:
+        pygame.draw.rect(win, (86, 213, 47),(800, 140, 20, 20))
+    elif fstations>1 and fstations == firec-1:
+        pygame.draw.rect(win, (86, 213, 47),(800, 140, 20, 20))
+
+
+    if homesp == homescp:
+        homescp = homescp+20
+        policec = policec+1
+        pygame.draw.rect(win, (0, 247, 255),(720, 170, 20, 20))
+    elif pstations == policec:
+        pygame.draw.rect(win, (86, 213, 47),(720, 170, 20, 20))
+    elif pstations>1 and pstations == policec-1:
+        pygame.draw.rect(win, (86, 213, 47),(720, 170, 20, 20))
+
     if tax==taxc:
         money=money+(income*10)
         taxc=taxc+1000
@@ -150,6 +196,7 @@ while run:
             pygame.draw.rect(win, (139,69,19),(760, 140, 20, 20))
 
 
+
     if keys[pygame.K_r]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
@@ -161,6 +208,8 @@ while run:
                         money = money-100
                         population = population+10
                         homes = homes+1
+                        homesf = homesf+1
+                        homesp = homesp+1
                         income=income+1
                         m[stuppos][redpos] = 1
                     if landValue>=10 and landValue<20:
@@ -168,6 +217,8 @@ while run:
                         money = money-200
                         population = population+100
                         homes = homes+1
+                        homesf = homesf+1
+                        homesp = homesp+1
                         landValue=landValue-1
                         m[stuppos][redpos] = 1
                         income=income+1
@@ -176,6 +227,8 @@ while run:
                         money = money-50
                         population = population+1000
                         homes = homes+1
+                        homesf = homesf+1
+                        homesp = homesp+1
                         landValue=landValue-1
                         m[stuppos][redpos] = 1
                         income=income+1
@@ -234,7 +287,43 @@ while run:
                     win.blit(park_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-50
                     landValue=landValue+10
-                    m[stuppos][redpos] = 4     
+                    m[stuppos][redpos] = 4
+
+                    
+    if keys[pygame.K_f]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_f]:
+            if (money>=500):
+                if (m[stuppos][redpos] == 0):
+                    win.blit(fire_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-500
+                    fstations=fstations+1
+                    m[stuppos][redpos] = 4
+
+                    
+    if keys[pygame.K_l]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_l]:
+            if (money>=500):
+                if (m[stuppos][redpos] == 0):
+                    win.blit(police_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-500
+                    pstations=pstations+1
+                    m[stuppos][redpos] = 4
+
+
+    if keys[pygame.K_h]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_h]:
+            if (money>=500):
+                if (m[stuppos][redpos] == 0):
+                    win.blit(hospital_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-500
+                    hospitals=hospitals+1
+                    m[stuppos][redpos] = 4 
 
 
 
