@@ -9,7 +9,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 1.0")
+pygame.display.set_caption("PyCity BETA 1.1")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
@@ -25,6 +25,7 @@ micon = pygame.image.load('images/money.png')
 fire = pygame.image.load('images/fire.png')
 police = pygame.image.load('images/police.png')
 hospital = pygame.image.load('images/hospital.png')
+prison = pygame.image.load('images/prison.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 25*25 Custom = custom*custom a\, Please enter your choise: ")
@@ -94,6 +95,9 @@ policec=0
 firec=0
 hosc =  0
 populationc=5000
+prisons=0
+prisonc=0
+pstationsc=5
 
 width = round(display_width/X)
 height = round(display_height/Y)
@@ -112,6 +116,7 @@ road_big = pygame.transform.scale(road, (width-2,height-2))
 fire_big = pygame.transform.scale(fire, (width-2,height-2))
 police_big = pygame.transform.scale(police, (width-2,height-2))
 hospital_big = pygame.transform.scale(hospital, (width-2,height-2))
+prison_big = pygame.transform.scale(prison, (width-2,height-2))
 run = True
 
 win.fill((0, 0, 0))
@@ -153,6 +158,14 @@ while run:
     elif hosc == hospitals:
         pygame.draw.rect(win, (86, 213, 47),(760, 170, 20, 20))
 
+    if pstations == pstationsc:
+        pstationsc = pstationsc+5
+        prisonc = prisonc+1
+        pygame.draw.rect(win, (90, 87, 87),(800, 170, 20, 20))
+    elif prisons == prisonc:
+        pygame.draw.rect(win, (86, 213, 47),(800, 170, 20, 20))
+
+
 
 
     if homesf == homescf:
@@ -161,8 +174,6 @@ while run:
         pygame.draw.rect(win, (255, 0, 0),(800, 140, 20, 20))
     elif fstations == firec:
         pygame.draw.rect(win, (86, 213, 47),(800, 140, 20, 20))
-    elif fstations>1 and fstations == firec-1:
-        pygame.draw.rect(win, (86, 213, 47),(800, 140, 20, 20))
 
 
     if homesp == homescp:
@@ -170,8 +181,6 @@ while run:
         policec = policec+1
         pygame.draw.rect(win, (0, 247, 255),(720, 170, 20, 20))
     elif pstations == policec:
-        pygame.draw.rect(win, (86, 213, 47),(720, 170, 20, 20))
-    elif pstations>1 and pstations == policec-1:
         pygame.draw.rect(win, (86, 213, 47),(720, 170, 20, 20))
 
     if tax==taxc:
@@ -323,7 +332,19 @@ while run:
                     win.blit(hospital_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     hospitals=hospitals+1
-                    m[stuppos][redpos] = 4 
+                    m[stuppos][redpos] = 4
+
+
+    if keys[pygame.K_s]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_s]:
+            if (money>=500):
+                if (m[stuppos][redpos] == 0):
+                    win.blit(prison_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-500
+                    prisons=prisons+1
+                    m[stuppos][redpos] = 4
 
 
 
