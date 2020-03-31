@@ -1,5 +1,6 @@
 import pygame
 import time
+import moneyupdate
 import array as arr
 
 
@@ -137,6 +138,9 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+    moneyupdate.update()
+    moneyupdate.umoney=money
+    moneyupdate.mwin=win
     mouse = pygame.mouse.get_pos()
     pygame.display.update()
     keys = pygame.key.get_pressed()
@@ -233,7 +237,7 @@ while run:
                         income=income+1
                     if landValue>=20:
                         win.blit(house_big3, (stuppos*width, redpos*height,width-2, height-2))
-                        money = money-50
+                        money = money-500
                         population = population+1000
                         homes = homes+1
                         homesf = homesf+1
