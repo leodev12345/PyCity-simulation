@@ -2,28 +2,28 @@
 
 ## Instalation
 
-### To play PyCity you first have to install pygame to install pygame open cmd or terminal and type:
+  To play PyCity you first have to install pygame to install pygame open cmd or terminal and type:
 
-### In linux:
+  In linux:
 ```
 $ sudo apt update
 ```
 ```
 $ pip3 install pygame
 ```
-### In Windows:
+  In Windows:
 
 ```
 pip install pygame
 ```
-### For more info visit:
+  For more info visit:
 [https://www.pygame.org/wiki/GettingStarted](https://www.pygame.org/wiki/GettingStarted)
 
-> ### When you have pygame installed cilck green "Clone or download" and click download .zip or clone it with git
+>   When you have pygame installed cilck green "Clone or download" and click download .zip or clone it with git
 
-### When files are downloaded go into src folder and run pycity.py
-### In windows double click it
-### In linux you can run it with python in terminal
+  When files are downloaded go into src folder and run pycity.py
+  In windows double click it
+  In linux you can run it with python in terminal
 
 ```
 $ python3 pycity.py
@@ -32,8 +32,8 @@ $ python3 pycity.py
 
 
 ## Building
-### Enter map size,diffculty,city name and press ENTER the game window should appear
-### To build hover with your mouse cursor over a square where you want to build and press one od the following keys:
+  Enter map size,diffculty,city name and press ENTER the game window should appear
+  To build hover with your mouse cursor over a square where you want to build and press one od the following keys:
 + R - build rezidential zone
 + C - build comercial zone
 + O - build road
@@ -45,7 +45,7 @@ $ python3 pycity.py
 + I - build industrial zone
 + E - erase a building
 ## Indicators
-### If you see square in right in one of following colors
+  If you see square in right in one of following colors
 + Light blue - Police station needed
 + Blue - Comercial zone needed
 + Red - Fire station needed
@@ -53,4 +53,4 @@ $ python3 pycity.py
 + Grey - Prison needed
 + White - Hospital needed
 ## Land value
-### Building parks increased land value,more parks,better rezidential zones
+  Building parks increased land value,more parks,better rezidential zones
