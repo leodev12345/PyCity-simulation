@@ -10,7 +10,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 1.2")
+pygame.display.set_caption("PyCity BETA 1.3")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
@@ -27,38 +27,41 @@ fire = pygame.image.load('images/fire.png')
 police = pygame.image.load('images/police.png')
 hospital = pygame.image.load('images/hospital.png')
 prison = pygame.image.load('images/prison.png')
+cityhall = pygame.image.load('images/cityhall.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 25*25 Custom = custom*custom a\, Please enter your choise: ")
 
 
-if help_manual == "Village":
+if help_manual == "Village" or help_manual == "village" :
     X = 5
     Y = 5
-elif help_manual == "Town":
+elif help_manual == "Town" or help_manual == "town":
     X = 7
     Y = 7
-elif help_manual == "City":
+elif help_manual == "City" or help_manual == "city":
     X = 10
     Y = 10
-elif help_manual == "Metropolis":
+elif help_manual == "Metropolis" or help_manual == "metropolis":
     X = 20
     Y = 20
-elif help_manual == "Megapolis":
+elif help_manual == "Megapolis" or help_manual == "megapolis":
     X = 25
     Y = 25
 else:
     X =int(input("Enter x:"))
     Y =int(input("Enter y:"))
 print("====================")
-print("Chose diffculty Easy - start with 20000 money Medium - start with 10000 money Hard - start with 1200 money")
+print("Chose diffculty Easy - start with 20000 money Medium - start with 10000 money Hard - start with 1200 money, Extreme - start with 100 money")
 diffculty = input()
-if diffculty=="Easy":
+if diffculty=="Easy" or diffculty=="easy":
     money = 20000
-elif diffculty=="Medium":
+elif diffculty=="Medium" or diffculty=="medium":
     money = 10000
-elif diffculty=="Hard":
+elif diffculty=="Hard" or diffculty=="hard":
     money = 1200
+elif diffculty=="Extreme" or diffculty=="extreme":
+    money = 100
 print("====================")
 print("Enter name for your city (14 char max):")
 name=input()
@@ -99,6 +102,8 @@ populationc=5000
 prisons=0
 prisonc=0
 pstationsc=5
+cityhalls=0
+rate=0.01
 
 width = round(display_width/X)
 height = round(display_height/Y)
@@ -118,6 +123,7 @@ fire_big = pygame.transform.scale(fire, (width-2,height-2))
 police_big = pygame.transform.scale(police, (width-2,height-2))
 hospital_big = pygame.transform.scale(hospital, (width-2,height-2))
 prison_big = pygame.transform.scale(prison, (width-2,height-2))
+cityhall_big = pygame.transform.scale(cityhall, (width-2,height-2))
 run = True
 
 win.fill((0, 0, 0))
@@ -137,7 +143,6 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
     moneyupdate.update()
     moneyupdate.umoney=money
     moneyupdate.mwin=win
@@ -146,14 +151,24 @@ while run:
     keys = pygame.key.get_pressed()
     stuppos = round(mouse[0]//width)
     redpos = round(mouse[1]//height)
-    text = myfont.render(str(money), True, (0,0,0), (86, 213, 47))
+    text = myfont.render(str(int(money)), True, (0,0,0), (86, 213, 47))
     text2 = myfont.render(str(population), True, (0,0,0), (86, 213, 47))
     text3 = myfont.render(str(name), True, (0,0,0), (86, 213, 47))
+    text4 = myfont.render(str(int(rate*100))+"%", True, (0,0,0), (86, 213, 47))
+    text5 = myfont.render("Tax rate:", True, (0,0,0), (86, 213, 47))
     win.blit(text3, (720, 10))
     pygame.draw.line(win,(0,0,0),(700,35),(850,35))
     win.blit(text, (735, 50))
     win.blit(text2, (735, 90))
+    if cityhalls>0:
+        win.blit(text4, (725, 300))
+        win.blit(text5, (715, 280))
     tax=tax+1
+    if cityhalls>0:
+        if keys[pygame.K_LEFT] and rate>=0.0:
+            rate=rate-0.01
+        if keys[pygame.K_RIGHT] and rate<=0.20:
+            rate=rate+0.01
 
     if population>=populationc and population<populationc+1000:
         populationc = populationc+5000
@@ -188,7 +203,7 @@ while run:
         pygame.draw.rect(win, (86, 213, 47),(720, 170, 20, 20))
 
     if tax==taxc:
-        money=money+(income*10)
+        money=money+rate*1000*income
         taxc=taxc+1000
         
     if homes == homesc:
@@ -225,7 +240,7 @@ while run:
                         homesp = homesp+1
                         income=income+1
                         m[stuppos][redpos] = 1
-                    if landValue>=10 and landValue<20:
+                    if landValue>=10 and landValue<20 and money>=200:
                         win.blit(house_big2, (stuppos*width, redpos*height,width-2, height-2))
                         money = money-200
                         population = population+100
@@ -235,7 +250,7 @@ while run:
                         landValue=landValue-1
                         m[stuppos][redpos] = 1
                         income=income+1
-                    if landValue>=20:
+                    if landValue>=20 and money >=500:
                         win.blit(house_big3, (stuppos*width, redpos*height,width-2, height-2))
                         money = money-500
                         population = population+1000
@@ -348,6 +363,16 @@ while run:
                     win.blit(prison_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     prisons=prisons+1
+                    m[stuppos][redpos] = 4
+    if keys[pygame.K_t]:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_t]:
+            if (money>=500):
+                if (m[stuppos][redpos] == 0):
+                    win.blit(cityhall_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-500
+                    cityhalls=cityhalls+1
                     m[stuppos][redpos] = 4
 
 
