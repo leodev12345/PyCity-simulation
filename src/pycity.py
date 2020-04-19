@@ -98,7 +98,7 @@ fstations=0
 policec=0
 firec=0
 hosc =  0
-populationc=5000
+populationc=50000
 prisons=0
 prisonc=0
 pstationsc=5
@@ -171,7 +171,7 @@ while run:
             rate=rate+0.01
 
     if population>=populationc and population<populationc+1000:
-        populationc = populationc+5000
+        populationc = populationc+50000
         hosc = hosc+1
         pygame.draw.rect(win, (255, 255, 255),(760, 170, 20, 20))
     elif hosc == hospitals:
