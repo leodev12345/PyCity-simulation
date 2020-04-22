@@ -62,6 +62,8 @@ elif diffculty=="Hard" or diffculty=="hard":
     money = 1200
 elif diffculty=="Extreme" or diffculty=="extreme":
     money = 100
+elif diffculty=="Dev" or diffculty=="dev":
+    money = 1000000000000000000000
 print("====================")
 print("Enter name for your city (14 char max):")
 name=input()
