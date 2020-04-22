@@ -1,4 +1,5 @@
 # PyCity-simulation
+![PyCity](images/pycity2.png)
 
 ## Instalation
 
