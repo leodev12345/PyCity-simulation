@@ -30,7 +30,7 @@ prison = pygame.image.load('images/prison.png')
 cityhall = pygame.image.load('images/cityhall.png')
 print("====================")
 
-help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 25*25 Custom = custom*custom a\, Please enter your choise: ")
+help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 50*50 Custom = custom*custom a\, Please enter your choise: ")
 
 
 if help_manual == "Village" or help_manual == "village" :
@@ -46,8 +46,8 @@ elif help_manual == "Metropolis" or help_manual == "metropolis":
     X = 20
     Y = 20
 elif help_manual == "Megapolis" or help_manual == "megapolis":
-    X = 25
-    Y = 25
+    X = 50
+    Y = 50
 else:
     X =int(input("Enter x:"))
     Y =int(input("Enter y:"))
