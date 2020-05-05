@@ -30,6 +30,7 @@ prison = pygame.image.load('images/prison.png')
 cityhall = pygame.image.load('images/cityhall.png')
 mountain = pygame.image.load('images/mountain.png')
 forest = pygame.image.load('images/forest.png')
+lake = pygame.image.load('images/lake.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 50*50 Custom = custom*custom a\, Please enter your choise: ")
@@ -131,6 +132,8 @@ prison_big = pygame.transform.scale(prison, (width-2,height-2))
 cityhall_big = pygame.transform.scale(cityhall, (width-2,height-2))
 mountain_big = pygame.transform.scale(mountain, (width-2,height-2))
 forest_big = pygame.transform.scale(forest, (width-2,height-2))
+lake_big = pygame.transform.scale(lake, (width-2,height-2))
+
 run = True
 
 win.fill((0, 0, 0))
@@ -297,6 +300,13 @@ while run:
         if keys[pygame.K_m]:
             if (m[stuppos][redpos] == 0):
                 win.blit(mountain_big, (stuppos*width, redpos*height,width-2, height-2))
+                m[stuppos][redpos] = 2
+    if keys[pygame.K_l] and edit==True:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_l]:
+            if (m[stuppos][redpos] == 0):
+                win.blit(lake_big, (stuppos*width, redpos*height,width-2, height-2))
                 m[stuppos][redpos] = 2
     if keys[pygame.K_f] and edit==True:
         stuppos = round(mouse[0]//width)
