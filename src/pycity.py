@@ -10,7 +10,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 1.3")
+pygame.display.set_caption("PyCity BETA 1.4")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
@@ -28,6 +28,8 @@ police = pygame.image.load('images/police.png')
 hospital = pygame.image.load('images/hospital.png')
 prison = pygame.image.load('images/prison.png')
 cityhall = pygame.image.load('images/cityhall.png')
+mountain = pygame.image.load('images/mountain.png')
+forest = pygame.image.load('images/forest.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 50*50 Custom = custom*custom a\, Please enter your choise: ")
@@ -81,6 +83,7 @@ Sum2 = int(0)
 
 m[0][0] = 0
 
+edit = False
 population = 0
 homes = 0
 homesf = 0
@@ -126,6 +129,8 @@ police_big = pygame.transform.scale(police, (width-2,height-2))
 hospital_big = pygame.transform.scale(hospital, (width-2,height-2))
 prison_big = pygame.transform.scale(prison, (width-2,height-2))
 cityhall_big = pygame.transform.scale(cityhall, (width-2,height-2))
+mountain_big = pygame.transform.scale(mountain, (width-2,height-2))
+forest_big = pygame.transform.scale(forest, (width-2,height-2))
 run = True
 
 win.fill((0, 0, 0))
@@ -140,6 +145,8 @@ for x in range(0,X*width,width):
 pygame.draw.rect(win, (86, 213, 47),(700, 0, 150, 700))
 win.blit(picon, (710, 90,20,20))
 win.blit(micon, (710, 50,20,20))
+text7 = myfont.render("Edit mode OFF", True, (255,0,0), (86, 213, 47))
+win.blit(text7, (710, 280))
 while run:
     pygame.time.delay(100)
     for event in pygame.event.get():
@@ -158,13 +165,15 @@ while run:
     text3 = myfont.render(str(name), True, (0,0,0), (86, 213, 47))
     text4 = myfont.render(str(int(rate*100))+"%", True, (0,0,0), (86, 213, 47))
     text5 = myfont.render("Tax rate:", True, (0,0,0), (86, 213, 47))
+    text6 = myfont.render("Edit mode ON  ", True, (34,139,34), (86, 213, 47))
+    text7 = myfont.render("Edit mode OFF", True, (255,0,0), (86, 213, 47))
     win.blit(text3, (720, 10))
     pygame.draw.line(win,(0,0,0),(700,35),(850,35))
     win.blit(text, (735, 50))
     win.blit(text2, (735, 90))
     if cityhalls>0:
-        win.blit(text4, (725, 300))
-        win.blit(text5, (715, 280))
+        win.blit(text4, (725, 250))
+        win.blit(text5, (715, 230))
     tax=tax+1
     if cityhalls>0:
         if keys[pygame.K_LEFT] and rate>=0.0:
@@ -220,12 +229,18 @@ while run:
         if shopsc == shops:
             pygame.draw.rect(win, (139,69,19),(760, 140, 20, 20))
             shopsc = shopsc+1
-        elif factories == shops:
+        elif factories >= shops:
             pygame.draw.rect(win, (86, 213, 47),(760, 140, 20, 20))
         elif shops>1 and shopsc-1 == shops:
             pygame.draw.rect(win, (139,69,19),(760, 140, 20, 20))
 
 
+    if keys[pygame.K_UP] and edit==False:
+        edit=True
+        win.blit(text6, (710, 280))
+    if keys[pygame.K_DOWN] and edit==True:
+        edit=False
+        win.blit(text7, (710, 280))
 
     if keys[pygame.K_r]:
         stuppos = round(mouse[0]//width)
@@ -275,6 +290,35 @@ while run:
                     shops = shops+1
                     income=income+1
                     m[stuppos][redpos] = 2
+
+    if keys[pygame.K_m] and edit==True:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_m]:
+            if (m[stuppos][redpos] == 0):
+                win.blit(mountain_big, (stuppos*width, redpos*height,width-2, height-2))
+                m[stuppos][redpos] = 2
+    if keys[pygame.K_f] and edit==True:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_f]:
+            if (m[stuppos][redpos] == 0):
+                win.blit(forest_big, (stuppos*width, redpos*height,width-2, height-2))
+                m[stuppos][redpos] = 2
+    if keys[pygame.K_w] and edit==True:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_w]:
+            if (m[stuppos][redpos] == 0):
+                pygame.draw.rect(win, (0, 0, 255),(stuppos*width, redpos*height, width-2, height-2))
+                m[stuppos][redpos] = 2
+    if keys[pygame.K_s] and edit==True:
+        stuppos = round(mouse[0]//width)
+        redpos = round(mouse[1]//height)
+        if keys[pygame.K_s]:
+            if (m[stuppos][redpos] == 0):
+                pygame.draw.rect(win, (242,209,107),(stuppos*width, redpos*height, width-2, height-2))
+                m[stuppos][redpos] = 2
 
     if keys[pygame.K_i]:
         stuppos = round(mouse[0]//width)
