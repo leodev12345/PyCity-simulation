@@ -2,6 +2,7 @@ import pygame
 import time
 import moneyupdate
 import array as arr
+import math
 
 
 
@@ -55,7 +56,7 @@ else:
     X =int(input("Enter x:"))
     Y =int(input("Enter y:"))
 print("====================")
-print("Chose diffculty Easy - start with 20000 money Medium - start with 10000 money Hard - start with 1200 money, Extreme - start with 100 money")
+print("Chose diffculty Easy - start with 20000 money Medium - start with 10000 money Hard - start with 1200 money, Extreme - start with 100 money, Free start with infinite money")
 diffculty = input()
 if diffculty=="Easy" or diffculty=="easy":
     money = 20000
@@ -67,6 +68,11 @@ elif diffculty=="Extreme" or diffculty=="extreme":
     money = 100
 elif diffculty=="Dev" or diffculty=="dev":
     money = 1000000000000000000000
+elif diffculty=="Free" or diffculty=="free":
+    money=0
+    money=float(money)
+    money=math.inf
+    
 print("====================")
 print("Enter name for your city (14 char max):")
 name=input()
@@ -163,7 +169,10 @@ while run:
     keys = pygame.key.get_pressed()
     stuppos = round(mouse[0]//width)
     redpos = round(mouse[1]//height)
-    text = myfont.render(str(int(money)), True, (0,0,0), (86, 213, 47))
+    if diffculty=="free" or diffculty=="Free":
+        text = myfont.render(str(money), True, (0,0,0), (86, 213, 47))
+    elif diffculty!="free" or diffculty!="Free":
+        text = myfont.render(str(int(money)), True, (0,0,0), (86, 213, 47))
     text2 = myfont.render(str(population), True, (0,0,0), (86, 213, 47))
     text3 = myfont.render(str(name), True, (0,0,0), (86, 213, 47))
     text4 = myfont.render(str(int(rate*100))+"%", True, (0,0,0), (86, 213, 47))
