@@ -11,7 +11,7 @@ pygame.init()
 win = pygame.display.set_mode((850,700))
 icon = pygame.image.load('images/icon.png')
 
-pygame.display.set_caption("PyCity BETA 1.4")
+pygame.display.set_caption("PyCity BETA 1.5")
 pygame.display.set_icon(icon)
 myfont = pygame.font.SysFont("arial", 20)
 
@@ -163,6 +163,7 @@ while run:
             run = False
     moneyupdate.update()
     moneyupdate.umoney=money
+    moneyupdate.up=population
     moneyupdate.mwin=win
     mouse = pygame.mouse.get_pos()
     pygame.display.update()
@@ -259,7 +260,7 @@ while run:
         redpos = round(mouse[1]//height)
         if keys[pygame.K_r]:
             if (money>=100):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     if landValue>=0 and landValue<10:
                         win.blit(house_big, (stuppos*width, redpos*height,width-2, height-2))
                         money = money-100
@@ -268,7 +269,7 @@ while run:
                         homesf = homesf+1
                         homesp = homesp+1
                         income=income+1
-                        m[stuppos][redpos] = 1
+                        m[stuppos][redpos] = 6
                     if landValue>=10 and landValue<20 and money>=200:
                         win.blit(house_big2, (stuppos*width, redpos*height,width-2, height-2))
                         money = money-200
@@ -277,7 +278,7 @@ while run:
                         homesf = homesf+1
                         homesp = homesp+1
                         landValue=landValue-1
-                        m[stuppos][redpos] = 1
+                        m[stuppos][redpos] = 7
                         income=income+1
                     if landValue>=20 and money >=500:
                         win.blit(house_big3, (stuppos*width, redpos*height,width-2, height-2))
@@ -287,7 +288,7 @@ while run:
                         homesf = homesf+1
                         homesp = homesp+1
                         landValue=landValue-1
-                        m[stuppos][redpos] = 1
+                        m[stuppos][redpos] = 8
                         income=income+1
         
         
@@ -296,12 +297,12 @@ while run:
         redpos = round(mouse[1]//height)
         if keys[pygame.K_c]:
             if (money>=100):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     win.blit(shop_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
                     shops = shops+1
                     income=income+1
-                    m[stuppos][redpos] = 2
+                    m[stuppos][redpos] = 16
 
     if keys[pygame.K_m] and edit==True:
         stuppos = round(mouse[0]//width)
@@ -337,26 +338,26 @@ while run:
         if keys[pygame.K_s]:
             if (m[stuppos][redpos] == 0):
                 pygame.draw.rect(win, (242,209,107),(stuppos*width, redpos*height, width-2, height-2))
-                m[stuppos][redpos] = 2
+                m[stuppos][redpos] = 17
 
     if keys[pygame.K_i]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_i]:
             if (money>=100):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     win.blit(factory_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-100
                     factories = factories+1
                     income=income+1
-                    m[stuppos][redpos] = 3
+                    m[stuppos][redpos] = 15
 
     if keys[pygame.K_o]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_o]:
             if (money>=10):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     win.blit(road_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-10
                     m[stuppos][redpos] = 4
@@ -366,21 +367,57 @@ while run:
         redpos = round(mouse[1]//height)
         if keys[pygame.K_e]:
             if (money>=10):
-                if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5):
+                if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5 or m[stuppos][redpos] == 6 or m[stuppos][redpos] == 7 or m[stuppos][redpos] == 8 or m[stuppos][redpos] == 9 or m[stuppos][redpos] == 10 or m[stuppos][redpos] == 11 or m[stuppos][redpos] == 12 or m[stuppos][redpos] == 13 or m[stuppos][redpos] == 14 or m[stuppos][redpos] == 15 or m[stuppos][redpos] == 16):
                     pygame.draw.rect(win, (86, 213, 47),(stuppos*width, redpos*height, width-2, height-2))
                     money = money-10
-                    m[stuppos][redpos] = 0
-    
+                    if m[stuppos][redpos] == 6:
+                        population = population - 10
+                        income=income-1
+                        m[stuppos][redpos] = 0
+                    elif m[stuppos][redpos] == 7:
+                        population = population - 100
+                        income=income-1
+                        m[stuppos][redpos] = 0
+                    elif m[stuppos][redpos] == 8:
+                        population = population - 1000
+                        income=income-1
+                        m[stuppos][redpos] = 0
+                    elif m[stuppos][redpos] == 9:
+                        m[stuppos][redpos] = 0
+                        landValue=landValue-10
+                    elif m[stuppos][redpos] == 10:
+                        m[stuppos][redpos] = 0
+                        fstations=fstations-1
+                    elif m[stuppos][redpos] == 11:
+                        m[stuppos][redpos] = 0
+                        pstations=pstations-1
+                    elif m[stuppos][redpos] == 12:
+                        m[stuppos][redpos] = 0
+                        hospitals=hospitals-1
+                    elif m[stuppos][redpos] == 13:
+                        m[stuppos][redpos] = 0
+                        prisons=prisons-1
+                    elif m[stuppos][redpos] == 14:
+                        m[stuppos][redpos] = 0
+                        cityhalls=cityhalls-1
+                    elif m[stuppos][redpos] == 15:
+                        m[stuppos][redpos] = 0
+                        factories = factories-1
+                        income=income-1
+                    elif m[stuppos][redpos] == 16:
+                        m[stuppos][redpos] = 0
+                        shops = shops-1
+                        income=income-1
     if keys[pygame.K_p]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_p]:
             if (money>=50):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     win.blit(park_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-50
                     landValue=landValue+10
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 9
 
                     
     if keys[pygame.K_f]:
@@ -392,7 +429,7 @@ while run:
                     win.blit(fire_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     fstations=fstations+1
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 10
 
                     
     if keys[pygame.K_l]:
@@ -404,7 +441,7 @@ while run:
                     win.blit(police_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     pstations=pstations+1
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 11
 
 
     if keys[pygame.K_h]:
@@ -416,7 +453,7 @@ while run:
                     win.blit(hospital_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     hospitals=hospitals+1
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 12
 
 
     if keys[pygame.K_s]:
@@ -428,17 +465,17 @@ while run:
                     win.blit(prison_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     prisons=prisons+1
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 13
     if keys[pygame.K_t]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_t]:
             if (money>=500):
-                if (m[stuppos][redpos] == 0):
+                if (m[stuppos][redpos] == 0 or m[stuppos][redpos] == 17):
                     win.blit(cityhall_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-500
                     cityhalls=cityhalls+1
-                    m[stuppos][redpos] = 4
+                    m[stuppos][redpos] = 14
 
 
 
