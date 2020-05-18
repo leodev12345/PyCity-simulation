@@ -32,6 +32,7 @@ cityhall = pygame.image.load('images/cityhall.png')
 mountain = pygame.image.load('images/mountain.png')
 forest = pygame.image.load('images/forest.png')
 lake = pygame.image.load('images/lake.png')
+bridge = pygame.image.load('images/bridge.png')
 print("====================")
 
 help_manual = input("Village = 5*5 ,Town = 7*7 ,City = 10*10 ,Metropolis = 20*20,Megapolis = 50*50 Custom = custom*custom a\, Please enter your choise: ")
@@ -139,6 +140,7 @@ cityhall_big = pygame.transform.scale(cityhall, (width-2,height-2))
 mountain_big = pygame.transform.scale(mountain, (width-2,height-2))
 forest_big = pygame.transform.scale(forest, (width-2,height-2))
 lake_big = pygame.transform.scale(lake, (width-2,height-2))
+bridge_big = pygame.transform.scale(bridge, (width-2,height-2))
 
 run = True
 
@@ -331,7 +333,7 @@ while run:
         if keys[pygame.K_w]:
             if (m[stuppos][redpos] == 0):
                 pygame.draw.rect(win, (0, 0, 255),(stuppos*width, redpos*height, width-2, height-2))
-                m[stuppos][redpos] = 2
+                m[stuppos][redpos] = 19
     if keys[pygame.K_s] and edit==True:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
@@ -368,13 +370,16 @@ while run:
                     win.blit(road_big, (stuppos*width, redpos*height,width-2, height-2))
                     money = money-10
                     m[stuppos][redpos] = 4
-
+                if (m[stuppos][redpos] == 19):
+                    win.blit(bridge_big, (stuppos*width, redpos*height,width-2, height-2))
+                    money = money-20
+                    m[stuppos][redpos] = 4
     if keys[pygame.K_e]:
         stuppos = round(mouse[0]//width)
         redpos = round(mouse[1]//height)
         if keys[pygame.K_e]:
             if (money>=10):
-                if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5 or m[stuppos][redpos] == 6 or m[stuppos][redpos] == 7 or m[stuppos][redpos] == 8 or m[stuppos][redpos] == 9 or m[stuppos][redpos] == 10 or m[stuppos][redpos] == 11 or m[stuppos][redpos] == 12 or m[stuppos][redpos] == 13 or m[stuppos][redpos] == 14 or m[stuppos][redpos] == 15 or m[stuppos][redpos] == 16  or m[stuppos][redpos] == 17 or m[stuppos][redpos] == 18):
+                if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5 or m[stuppos][redpos] == 6 or m[stuppos][redpos] == 7 or m[stuppos][redpos] == 8 or m[stuppos][redpos] == 9 or m[stuppos][redpos] == 10 or m[stuppos][redpos] == 11 or m[stuppos][redpos] == 12 or m[stuppos][redpos] == 13 or m[stuppos][redpos] == 14 or m[stuppos][redpos] == 15 or m[stuppos][redpos] == 16  or m[stuppos][redpos] == 17 or m[stuppos][redpos] == 18 or m[stuppos][redpos] == 19):
                     pygame.draw.rect(win, (86, 213, 47),(stuppos*width, redpos*height, width-2, height-2))
                     money = money-10
                     if m[stuppos][redpos] == 6:
