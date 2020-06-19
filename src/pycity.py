@@ -97,8 +97,8 @@ homes = 0
 homesf = 0
 homesp = 0
 homesc = 10
-homescf = 20
-homescp =20
+homescf = 50
+homescp =50
 shopsc = 0
 shops = 0
 income = 0
@@ -214,7 +214,7 @@ while run:
 
 
     if homesf == homescf:
-        homescf = homescf+20
+        homescf = homescf+50
         firec = firec+1
         pygame.draw.rect(win, (255, 0, 0),(800, 140, 20, 20))
     elif fstations == firec:
@@ -222,7 +222,7 @@ while run:
 
 
     if homesp == homescp:
-        homescp = homescp+20
+        homescp = homescp+50
         policec = policec+1
         pygame.draw.rect(win, (0, 247, 255),(720, 170, 20, 20))
     elif pstations == policec:
