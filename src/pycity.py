@@ -178,7 +178,7 @@ while run:
         text = myfont.render(str(int(money)), True, (0,0,0), (86, 213, 47))
     text2 = myfont.render(str(population), True, (0,0,0), (86, 213, 47))
     text3 = myfont.render(str(name), True, (0,0,0), (86, 213, 47))
-    text4 = myfont.render(str(int(rate*100))+"%", True, (0,0,0), (86, 213, 47))
+    text4 = myfont.render(str(int(rate*100))+"%  ", True, (0,0,0), (86, 213, 47))
     text5 = myfont.render("Tax rate:", True, (0,0,0), (86, 213, 47))
     text6 = myfont.render("Edit mode ON  ", True, (34,139,34), (86, 213, 47))
     text7 = myfont.render("Edit mode OFF", True, (255,0,0), (86, 213, 47))
@@ -379,20 +379,13 @@ while run:
             redpos = round(mouse[1]//height)
             if keys[pygame.K_e]:
                 if (money>=10):
-                    if (m[stuppos][redpos] == 1 or m[stuppos][redpos] == 2 or m[stuppos][redpos] == 3 or m[stuppos][redpos] == 4 or m[stuppos][redpos] == 5 or m[stuppos][redpos] == 6 or m[stuppos][redpos] == 7 or m[stuppos][redpos] == 8 or m[stuppos][redpos] == 9 or m[stuppos][redpos] == 10 or m[stuppos][redpos] == 11 or m[stuppos][redpos] == 12 or m[stuppos][redpos] == 13 or m[stuppos][redpos] == 14 or m[stuppos][redpos] == 15 or m[stuppos][redpos] == 16  or m[stuppos][redpos] == 17 or m[stuppos][redpos] == 18 or m[stuppos][redpos] == 19):
+                    if (m[stuppos][redpos] > 0 and m[stuppos][redpos]<=19):
                         pygame.draw.rect(win, (86, 213, 47),(stuppos*width, redpos*height, width-2, height-2))
                         money = money-10
-                        if m[stuppos][redpos] == 1:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 2:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 3:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 4:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 5:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 6:
+                        for erase1 in range(1,6):
+                            if m[stuppos][redpos] == erase1:
+                                m[stuppos][redpos] = 0
+                        if m[stuppos][redpos] == 6:
                             population = population - 10
                             income=income-1
                             m[stuppos][redpos] = 0
@@ -430,12 +423,9 @@ while run:
                             m[stuppos][redpos] = 0
                             shops = shops-1
                             income=income-1
-                        elif m[stuppos][redpos] == 19:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 18:
-                             m[stuppos][redpos] = 0
-                        elif m[stuppos][redpos] == 17:
-                             m[stuppos][redpos] = 0
+                        for erase2 in range(17,20):
+                            if m[stuppos][redpos] == erase2:
+                                 m[stuppos][redpos] = 0
         if keys[pygame.K_p]:
             stuppos = round(mouse[0]//width)
             redpos = round(mouse[1]//height)
