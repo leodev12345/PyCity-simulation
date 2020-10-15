@@ -33,8 +33,8 @@ $ python3 pycity.py
 
 
 ## Building
-  Enter map size,diffculty,city name and press ENTER the game window should appear
-  To build hover with your mouse cursor over a square where you want to build and press one od the following keys:
+  Enter map size, diffculty, city name and press ENTER the game window should appear
+  To build hover with your mouse cursor over a square where you want to build and press one of the following keys:
 + R - build rezidential zone
 + C - build comercial zone
 + O - build road
@@ -44,7 +44,7 @@ $ python3 pycity.py
 + S - build prison
 + P - build park
 + I - build industrial zone
-+ E - erase a building
++ E - remove anything
 ## Indicators
   If you see square in right in one of following colors
 + Light blue - Police station needed
@@ -54,4 +54,4 @@ $ python3 pycity.py
 + Grey - Prison needed
 + White - Hospital needed
 ## Land value
-  Building parks increased land value,more parks,better rezidential zones
+  Building parks increase land value, so, more parks = better rezidential zones
