@@ -37,7 +37,7 @@ $ python3 pycity.py
   To build hover with your mouse cursor over a square where you want to build and press one of the following keys:
 + R - build rezidential zone
 + C - build comercial zone
-+ O - build road tool
++ O - build road
 + L - build police station
 + F - build fire station
 + H - build hospital
