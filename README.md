@@ -1,18 +1,20 @@
+This project has been deprecated. This is being superceded by a new project PyCity 3D (name not decided)
+
 # PyCity-simulation
 ![PyCity](src/images/pycity2.png)
 
-## Instalation
+## Installation
 
-  To play PyCity you first have to install pygame to install pygame open cmd or terminal and type:
+  To play PyCity, you first have to install pygame to install pygame open cmd or terminal and type:
 
-  In linux:
+  For linux:
 ```
 $ sudo apt update
 ```
 ```
 $ pip3 install pygame
 ```
-  In Windows:
+  For Windows:
 
 ```
 pip install pygame
@@ -20,16 +22,21 @@ pip install pygame
   For more info visit:
 [https://www.pygame.org/wiki/GettingStarted](https://www.pygame.org/wiki/GettingStarted)
 
->   When you have pygame installed cilck green "Clone or download" and click download .zip or clone it with git
+>   When you got pygame installed cilck green "Clone or download" and click download .zip or clone it with git
 
-  When files are downloaded go into src folder and run pycity.py
-  In windows double click it
-  In linux you can run it with python in terminal
+  Once the download completes, unzip it and go to src folder.
+  Open up Windows Command Prompt or Terminal (in Mac and Linux) and run the following command:
+```
+python pycity.py
+```
+  For Linux, you may need to run it like this.
 
 ```
 $ python3 pycity.py
 ```
-## How to play
+## How to play?
+
+It's simple like in other city building games.
 
 
 ## Building
@@ -55,3 +62,9 @@ $ python3 pycity.py
 + White - Hospital needed
 ## Land value
   Building parks increase land value, so, more parks = better rezidential zones
+
+Thank you for trying out PyCity.
+
+Enjoy!
+
+Don't forget to join my discord server: https://discord.gg/puuF2BbRwU
