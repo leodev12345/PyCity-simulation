@@ -1,3 +1,5 @@
+This project has been deprecated. This is being superceded by a new project PyCity 3D (name not decided)
+
 # PyCity-simulation
 ![PyCity](src/images/pycity2.png)
 
