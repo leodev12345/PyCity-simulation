@@ -1,4 +1,7 @@
-This project has been deprecated. This is being superceded by a new project PyCity 3D (name not decided)
+# ⚠Deprecation Notice
+---------------------
+This project has been deprecated. This is being superceded by a new project PyCity 3D (name not decided). You can learn more by joining the discord server.  
+Link below.
 
 # PyCity-simulation
 ![PyCity](src/images/pycity2.png)
@@ -52,6 +55,7 @@ It's simple like in other city building games.
 + P - build park
 + I - build industrial zone
 + E - remove anything
+------------------------------
 ## Indicators
   If you see square in right in one of following colors
 + Light blue - Police station needed
@@ -60,11 +64,16 @@ It's simple like in other city building games.
 + Brown - Industrial zone needed
 + Grey - Prison needed
 + White - Hospital needed
+--------------
+
 ## Land value
   Building parks increase land value, so, more parks = better rezidential zones
+
+----------
 
 Thank you for trying out PyCity.
 
 Enjoy!
 
 Don't forget to join my discord server: https://discord.gg/puuF2BbRwU
+And Don't forget to star this repo, if you like it tho.
